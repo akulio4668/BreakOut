@@ -17,6 +17,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var paddle: SKSpriteNode!
     var bricks: [SKSpriteNode?] = []
     var loseZone: SKSpriteNode!
+    var lives = 3
     
     override func didMove(to view: SKView)
     {
@@ -66,12 +67,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if contact.bodyA.node?.name == "lose zone" || contact.bodyB.node?.name == "lose zone"
         {
             print("You Lose a Ball")
+            if lives == 1
+            {
+                reset()
+            }
+            else
+            {
+                lives -= 1
+            }
         }
         
     }
     
     
-    
+    func reset()
+    {
+        lives = 3
+    }
     func createBackground()
     {
         let stars = SKTexture(imageNamed: "stars")
