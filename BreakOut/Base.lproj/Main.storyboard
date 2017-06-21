@@ -32,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Atari_Inc_logo" translatesAutoresizingMaskIntoConstraints="NO" id="lNx-MG-Nzh">
-                                <rect key="frame" x="16" y="148" width="343" height="80"/>
+                                <rect key="frame" x="16" y="148" width="332" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="hzi-A6-aZH"/>
                                 </constraints>
@@ -58,12 +58,11 @@
                             <constraint firstItem="BeH-Ti-Clh" firstAttribute="trailing" secondItem="SgS-Wi-IxV" secondAttribute="trailingMargin" id="0ea-IN-oit"/>
                             <constraint firstItem="BeH-Ti-Clh" firstAttribute="leading" secondItem="SgS-Wi-IxV" secondAttribute="leadingMargin" id="2Fq-f6-PWq"/>
                             <constraint firstItem="lNx-MG-Nzh" firstAttribute="top" secondItem="rCV-pH-eDb" secondAttribute="bottom" constant="128" id="3dH-RB-Z6j"/>
-                            <constraint firstItem="lNx-MG-Nzh" firstAttribute="centerX" secondItem="SgS-Wi-IxV" secondAttribute="centerX" id="3pf-bj-gV9"/>
                             <constraint firstItem="BeH-Ti-Clh" firstAttribute="centerX" secondItem="SgS-Wi-IxV" secondAttribute="centerX" id="7DY-mZ-1Jk"/>
-                            <constraint firstItem="lNx-MG-Nzh" firstAttribute="trailing" secondItem="SgS-Wi-IxV" secondAttribute="trailingMargin" id="BfF-yb-yBm"/>
                             <constraint firstItem="gIc-6a-bVA" firstAttribute="centerX" secondItem="SgS-Wi-IxV" secondAttribute="centerX" id="GcI-ol-2ze"/>
                             <constraint firstItem="gIc-6a-bVA" firstAttribute="leading" secondItem="SgS-Wi-IxV" secondAttribute="leadingMargin" constant="82" id="HF0-sY-e1g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gIc-6a-bVA" secondAttribute="trailing" constant="82" id="HIK-dy-bRQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lNx-MG-Nzh" secondAttribute="trailing" constant="11" id="HOx-Le-8Bv"/>
                             <constraint firstItem="lNx-MG-Nzh" firstAttribute="leading" secondItem="SgS-Wi-IxV" secondAttribute="leadingMargin" id="HyG-0C-vna"/>
                             <constraint firstItem="gIc-6a-bVA" firstAttribute="top" secondItem="BeH-Ti-Clh" secondAttribute="bottom" constant="120" id="i7j-FX-dyl"/>
                             <constraint firstItem="BeH-Ti-Clh" firstAttribute="top" secondItem="lNx-MG-Nzh" secondAttribute="bottom" constant="19" id="mun-yo-uGV"/>
@@ -87,18 +86,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZK-7i-INU">
-                                <rect key="frame" x="16" y="20" width="30" height="30"/>
+                                <rect key="frame" x="16" y="40" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="c8H-XI-I5F"/>
                                     <constraint firstAttribute="width" constant="30" id="uav-yg-dtj"/>
                                 </constraints>
                                 <state key="normal" image="menu-button-md"/>
+                                <connections>
+                                    <segue destination="QiQ-x0-EDD" kind="show" id="LII-38-Miy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="hZK-7i-INU" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="20" id="Lhp-C7-NuP"/>
                             <constraint firstItem="hZK-7i-INU" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" id="bFt-wR-Pfo"/>
-                            <constraint firstItem="hZK-7i-INU" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" id="x9e-kH-hG6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d5v-Lo-vlq"/>
