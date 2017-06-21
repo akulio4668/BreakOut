@@ -77,15 +77,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 lives -= 1
             }
+            ball.removeFromParent()
+            paddle.removeFromParent()
+            createBall()
+            createPaddle()
         }
-        
     }
     
     
     func reset()
     {
         lives = 3
+        createBricks()
     }
+    
     func createBackground()
     {
         let stars = SKTexture(imageNamed: "stars")
@@ -178,7 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func createLoseZone()
     {
-        loseZone = SKSpriteNode(color: UIColor.clear, size: CGSize(width: frame.width, height: 50))
+        loseZone = SKSpriteNode(color: UIColor.clear, size: CGSize(width: frame.width, height: 1))
         loseZone.position = CGPoint(x: frame.midX, y: frame.minY + 25)
         loseZone.name = "lose zone"
         
