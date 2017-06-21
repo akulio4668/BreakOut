@@ -59,14 +59,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
 
     func didBegin(_ contact: SKPhysicsContact)
     {
-        if contact.bodyA.node?.name == "brick" || contact.bodyB.node?.name == "brick"
+        if contact.bodyA.node?.name == "brick"
         {
-            print("Brick Hit!")
-            //brick.removeFromParent()
+            contact.bodyA.node?.removeFromParent()
+        }
+        if contact.bodyB.node?.name == "brick"
+        {
+            contact.bodyB.node?.removeFromParent()
         }
         if contact.bodyA.node?.name == "lose zone" || contact.bodyB.node?.name == "lose zone"
         {
-            print("You Lose a Ball")
             if lives == 1
             {
                 reset()
@@ -92,7 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             let starsBackground = SKSpriteNode(texture: stars)
             starsBackground.zPosition = -1  // sets stacking order (lowest numbers in the very back; below everything)
-            starsBackground.anchorPoint = CGPoint(x: 0.5, y: 0.5)   // anchors the image 
+            starsBackground.anchorPoint = CGPoint(x: 0.5, y: 0.5)   // anchors the image
             starsBackground.position = CGPoint(x: 0, y: (starsBackground.size.height * CGFloat(i) - CGFloat(1 * i)))
             
             addChild(starsBackground)
@@ -109,6 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func createBall()
     {
         let ballDiameter = frame.width / 20
+        var circle = SKShapeNode(circleOfRadius: ballDiameter / 2)
         ball = SKSpriteNode(color: UIColor.blue, size: CGSize(width: ballDiameter, height: ballDiameter))
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         ball.name = "ball"
@@ -126,12 +129,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         ball.physicsBody?.contactTestBitMask = (ball.physicsBody?.collisionBitMask)!
         
         addChild(ball)
-        
     }
     
     func createPaddle()
     {
-        paddle = SKSpriteNode(color: UIColor.white, size: CGSize(width: frame.width / 4, height: frame.height / 25))
+        paddle = SKSpriteNode(color: UIColor.white, size: CGSize(width: frame.width / 4, height: frame.height / 50))
         paddle.position = CGPoint(x: frame.midX, y: frame.minY + 125)
         paddle.name = "paddle"
         
@@ -144,34 +146,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func createBricks()
     {
-        let numberOfRows = 3
-        let numberOfBricks = 10
-        let brickWidth = 25
-        let padding: Float = 10.0
-        let calculationOne = Float(self.frame.size.width) - (Float(brickWidth) * Float(numberOfBricks))
-        let calculationTwo = padding * (Float(numberOfBricks) - 1)
-        let offset: Float = (calculationOne - calculationTwo) / 2
+        var numberOfRows = 3
+        var numberOfBricks = 5
+        var brickWidth = 70
+        var brickHeight = 10
+        var xPosition = -162.5
+        var yPosition = 100.0
+        var offset = 10
         
         for rows in 1...numberOfRows
         {
             for index in 1...numberOfBricks
             {
-                let brick = SKSpriteNode(color: UIColor.white, size: CGSize(width: 25, height: 10))
-                print("Hello world")
-                
-                let calc1: Float = Float(index) - 0.5
-                let calc2: Float = Float(index) - 1.0
-                
-                brick.position = CGPoint(x: Double(calc1 * Float(brick.frame.size.width) + calc2 * padding + offset), y: Double(100 + 10 * rows))
-                
-                brick.physicsBody = SKPhysicsBody(rectangleOf: brick.frame.size)
-                brick.physicsBody?.allowsRotation = false
-                brick.physicsBody?.friction = 0
-                brick.name = "brick"
-                brick.physicsBody?.isDynamic = false
-                addChild(brick)
+                makeBrick(xPosition: xPosition, yPosition: yPosition, width: brickWidth, height: brickHeight)
+                xPosition += Double(brickWidth + offset)
             }
+            xPosition = -162.5
+            yPosition += Double(brickHeight + offset)
         }
+    }
+    
+    func makeBrick(xPosition : Double, yPosition : Double, width: Int, height: Int)
+    {
+        var brick = SKSpriteNode(color: UIColor.white, size: CGSize(width: width, height: height))
+        brick.position = CGPoint(x: xPosition, y: yPosition)
+        brick.name = "brick"
+        brick.physicsBody = SKPhysicsBody(rectangleOf: brick.size)
+        brick.physicsBody?.isDynamic = false
+        addChild(brick)
     }
     
     func createLoseZone()
