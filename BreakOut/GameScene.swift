@@ -25,7 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createBackground()
         createBall()
         createPaddle()
-        createBrick()
+        createBricks()
         createLoseZone()
         
         // this will start the ball movement
@@ -130,9 +130,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(paddle)
     }
     
-    func createBrick()
+    func createBricks()
     {
-        brick = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width / 6, height: frame.height / 25))
+        var brickTexture = SKTexture(imageNamed: "brick")
+        for i in 0..<1
+        {
+            for j in 1...3
+            {
+                brick = SKSpriteNode(texture: brickTexture)
+                brick.position = CGPoint(x: CGFloat(i * 25), y: CGFloat(125 + (10 * (j - 1))))
+                brick.name = "box" + String(i * j)
+                brick.physicsBody = SKPhysicsBody(rectangleOf: brick.size)
+                brick.physicsBody?.isDynamic = false
+                addChild(brick)
+            }
+        }
+        /*brick = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width / 6, height: frame.height / 25))
         brick.position = CGPoint(x: frame.midX, y: frame.maxY - 30)
         brick.name = "brick"
         
@@ -140,7 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         brick.physicsBody?.isDynamic = false
         
-        addChild(brick)
+        addChild(brick)*/
     }
     
     func createLoseZone()
