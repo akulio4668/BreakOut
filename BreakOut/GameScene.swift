@@ -74,6 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             else
             {
                 lives -= 1
+                let alertGameOver = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
+                let alertGameOverAction = UIAlertAction(title: "Restart", style: .default) { (addAction) in self.reset()}
             }
         }
         
