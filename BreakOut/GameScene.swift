@@ -116,8 +116,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func createBall()
     {
         let ballDiameter = frame.width / 20
-        var circle = SKShapeNode(circleOfRadius: ballDiameter / 2)
-        ball = SKSpriteNode(color: UIColor.blue, size: CGSize(width: ballDiameter, height: ballDiameter))
+        let ballTexture = SKTexture(imageNamed: "donald trump")
+        ball = SKSpriteNode(texture: ballTexture, color: UIColor.white, size: CGSize(width: ballDiameter, height: ballDiameter))
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         ball.name = "ball"
         
