@@ -27,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createBall()
         createPaddle()
         createLoseZone()
+        createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
         
         // this will start the ball movement
     }
@@ -89,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func reset()
     {
         lives = 3
-        createBricks()
+        createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
     }
     
     func createBackground()
@@ -117,8 +118,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func createBall()
     {
         let ballDiameter = frame.width / 20
-        var circle = SKShapeNode(circleOfRadius: ballDiameter / 2)
-        ball = SKSpriteNode(color: UIColor.blue, size: CGSize(width: ballDiameter, height: ballDiameter))
+        let ballTexture = SKTexture(imageNamed: "donald trump")
+        ball = SKSpriteNode(texture: ballTexture, color: UIColor.white, size: CGSize(width: ballDiameter, height: ballDiameter))
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         ball.name = "ball"
         
@@ -150,6 +151,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(paddle)
     }
 
+    
+    func createBricks(NumberOfRows: Int, NumberOfBricks: Int, XPosition: Double, YPosition: Double, Padding: Int)
+    {
+        var numberOfRows = NumberOfRows
+        var numberOfBricks = NumberOfBricks
+        var xPosition = XPosition
+        var yPosition = YPosition
+        var padding = Padding
+        var brickHeight = 10
+        var brickWidth = (Int(frame.width) - padding * 9) / 10
+        
+        for rows in 1...numberOfRows
+        {
+            for index in 1...numberOfBricks
+            {
+                makeBrick(xPosition: xPosition, yPosition: yPosition, width: brickWidth, height: brickHeight)
+                xPosition += Double(brickWidth + padding)
+            }
+            xPosition = Double(frame.width / 25) - Double(frame.width / 2)
+            yPosition += Double(brickHeight + padding)
+        }
+    }
+    
     
     func makeBrick(xPosition : Double, yPosition : Double, width: Int, height: Int)
     {
