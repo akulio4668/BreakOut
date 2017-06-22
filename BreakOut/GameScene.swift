@@ -18,6 +18,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var bricks: [SKSpriteNode?] = []
     var loseZone: SKSpriteNode!
     var lives = 3
+    var score = 0
+    var scoreLabel: SKLabelNode!
     
     override func didMove(to view: SKView)
     {
@@ -27,6 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createBall()
         createPaddle()
         createLoseZone()
+        createScoreLabel()
         createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
         
         // this will start the ball movement
@@ -62,11 +65,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if contact.bodyA.node?.name == "brick"
         {
             contact.bodyA.node?.removeFromParent()
+            score += 100
+            scoreLabel.removeFromParent()
+            createScoreLabel()
         }
+        
         if contact.bodyB.node?.name == "brick"
         {
             contact.bodyB.node?.removeFromParent()
+            score += 100
+            scoreLabel.removeFromParent()
+            createScoreLabel()
         }
+        
         if contact.bodyA.node?.name == "lose zone" || contact.bodyB.node?.name == "lose zone"
         {
             if lives == 1
@@ -90,6 +101,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func reset()
     {
         lives = 3
+        score = 0
+        scoreLabel.removeFromParent()
+        createScoreLabel()
         createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
     }
     
@@ -196,5 +210,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         addChild(loseZone)
     }
-
+    
+    func createScoreLabel()
+    {
+        scoreLabel = SKLabelNode(text: "Score: \(score)")
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.maxY - 100)
+        scoreLabel.name = "score label"
+        addChild(scoreLabel)
+    }
 }
