@@ -128,14 +128,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func reset()
     {
         winLoseLabel.text = "YOU LOSE!"
-        UIView.animate(withDuration: 3)
-        {
-            self.winLoseLabel.isHidden = false
-        }
-        UIView.animate(withDuration: 3)
-        {
-            self.winLoseLabel.isHidden = true
-        }
         lives = 3
         score = 0
         scoreLabel.removeFromParent()
@@ -301,10 +293,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func createWinLoseLabel()
     {
-        winLoseLabel = SKLabelNode(text: "")
-        winLoseLabel.position = CGPoint(x: frame.midX, y: frame.midY)
+        winLoseLabel = SKLabelNode(text: "Hi friend")
+        winLoseLabel.position = CGPoint(x: frame.midX, y: frame.midY + 100)
+        winLoseLabel.zPosition = 100
         winLoseLabel.name = "win lose label"
-        winLoseLabel.isHidden = true
+        winLoseLabel.isHidden = false
         addChild(winLoseLabel)
     }
 }
