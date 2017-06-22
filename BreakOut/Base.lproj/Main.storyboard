@@ -49,7 +49,7 @@
                                     <color key="titleColor" red="0.75704127550125122" green="0.98761290311813354" blue="0.99041289091110229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BV1-FR-VrT" kind="show" id="yl7-Lh-01i"/>
+                                    <segue destination="BV1-FR-VrT" kind="show" id="zbk-vZ-uRc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -133,6 +133,6 @@
         <image name="menu-button-md" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yl7-Lh-01i"/>
+        <segue reference="zbk-vZ-uRc"/>
     </inferredMetricsTieBreakers>
 </document>

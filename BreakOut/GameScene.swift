@@ -23,10 +23,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var lifeThree: SKSpriteNode!
     var scoreLabel: SKLabelNode!
     var score = 0
+    var winLoseLabel: SKLabelNode!
+    var sound: SKAction!
     
     override func didMove(to view: SKView)
     {
-        var sound = SKAction.playSoundFileNamed("Background.mp3", waitForCompletion: false)
+        sound = SKAction.playSoundFileNamed("Background.mp3", waitForCompletion: false)
         run(sound)
         physicsWorld.contactDelegate = self
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)   // makes edge of the view part of the physics
@@ -35,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createPaddle()
         createLoseZone()
         createScoreLabel()
+        createWinLoseLabel()
         createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
         generateLifeThree()
         generateLifeTwo()
@@ -112,11 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 lifeTwo.removeFromParent()
                 lifeOne.removeFromParent()
                 lives = 0
-            }
-            else if lives == 0
-            {
-                let alertGameOver = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
-                let alertGameOverAction = UIAlertAction(title: "Restart", style: .default) { (addAction) in self.reset()}
+                reset()
             }
             ball.removeFromParent()
             paddle.removeFromParent()
@@ -128,6 +127,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func reset()
     {
+        winLoseLabel.text = "YOU LOSE!"
+        UIView.animate(withDuration: 3)
+        {
+            self.winLoseLabel.isHidden = false
+        }
+        UIView.animate(withDuration: 3)
+        {
+            self.winLoseLabel.isHidden = true
+        }
         lives = 3
         score = 0
         scoreLabel.removeFromParent()
@@ -289,5 +297,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         scoreLabel.position = CGPoint(x: frame.midX, y: frame.maxY - 100)
         scoreLabel.name = "score label"
         addChild(scoreLabel)
+    }
+    
+    func createWinLoseLabel()
+    {
+        winLoseLabel = SKLabelNode(text: "")
+        winLoseLabel.position = CGPoint(x: frame.midX, y: frame.midY)
+        winLoseLabel.name = "win lose label"
+        winLoseLabel.isHidden = true
+        addChild(winLoseLabel)
     }
 }
