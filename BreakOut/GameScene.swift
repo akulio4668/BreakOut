@@ -113,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 lifeOne.removeFromParent()
                 lives = 0
             }
-            else if lives == 0
+            else
             {
                 let alertGameOver = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
                 let alertGameOverAction = UIAlertAction(title: "Restart", style: .default) { (addAction) in self.reset()}
