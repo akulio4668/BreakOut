@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 // SKPhysicsContactDelegate - Add to use contact physics
 class GameScene: SKScene, SKPhysicsContactDelegate
@@ -15,7 +16,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var ball: SKSpriteNode!
     var paddle: SKSpriteNode!
-    var bricks: [SKSpriteNode?] = []
     var loseZone: SKSpriteNode!
     var lives = 3
     var lifeOne: SKSpriteNode!
@@ -24,12 +24,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func didMove(to view: SKView)
     {
+        var sound = SKAction.playSoundFileNamed("Background.mp3", waitForCompletion: false)
+        run(sound)
         physicsWorld.contactDelegate = self
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)   // makes edge of the view part of the physics
         createBackground()
         createBall()
         createPaddle()
         createLoseZone()
+        createScoreLabel()
         createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
         generateLifeThree()
         generateLifeTwo()
@@ -43,7 +46,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if ball.physicsBody?.isDynamic == false
         {
             ball.physicsBody?.isDynamic = true
-            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: -5))
+            var yVectorDir = Int(arc4random() % 5 + 3)
+            var xVectorDir = Int(arc4random() % 5 + 1)
+            var signChoice = Int(arc4random() % 2)
+            if (signChoice == 0)
+            {
+                xVectorDir = -xVectorDir
+            }
+            ball.physicsBody?.applyImpulse(CGVector(dx: xVectorDir, dy: -yVectorDir))
         }
         
         for touch in touches
@@ -68,11 +78,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if contact.bodyA.node?.name == "brick"
         {
             contact.bodyA.node?.removeFromParent()
+            score += 100
+            scoreLabel.removeFromParent()
+            createScoreLabel()
         }
+        
         if contact.bodyB.node?.name == "brick"
         {
             contact.bodyB.node?.removeFromParent()
+            score += 100
+            scoreLabel.removeFromParent()
+            createScoreLabel()
         }
+        
         if contact.bodyA.node?.name == "lose zone" || contact.bodyB.node?.name == "lose zone"
         {
             if lives == 3
@@ -109,6 +127,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func reset()
     {
         lives = 3
+        score = 0
+        scoreLabel.removeFromParent()
+        createScoreLabel()
         createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
         generateLifeOne()
         generateLifeTwo()
@@ -259,5 +280,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         addChild(loseZone)
     }
-
+    
+    func createScoreLabel()
+    {
+        scoreLabel = SKLabelNode(text: "Score: \(score)")
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.maxY - 100)
+        scoreLabel.name = "score label"
+        addChild(scoreLabel)
+    }
 }
