@@ -18,6 +18,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var bricks: [SKSpriteNode?] = []
     var loseZone: SKSpriteNode!
     var lives = 3
+    var lifeOne: SKSpriteNode!
+    var lifeTwo: SKSpriteNode!
+    var lifeThree: SKSpriteNode!
     
     override func didMove(to view: SKView)
     {
@@ -28,6 +31,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createPaddle()
         createLoseZone()
         createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
+        generateLifeThree()
+        generateLifeTwo()
+        generateLifeOne()
         
         // this will start the ball movement
     }
@@ -69,13 +75,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         if contact.bodyA.node?.name == "lose zone" || contact.bodyB.node?.name == "lose zone"
         {
-            if lives == 1
+            if lives == 3
             {
-                reset()
+                lifeThree.removeFromParent()
+                lives = 2
             }
-            else
+            else if lives == 2
             {
-                lives -= 1
+                lifeThree.removeFromParent()
+                lifeTwo.removeFromParent()
+                lives = 1
+            }
+            else if lives == 1
+            {
+                lifeThree.removeFromParent()
+                lifeTwo.removeFromParent()
+                lifeOne.removeFromParent()
+                lives = 0
+            }
+            else if lives == 0
+            {
                 let alertGameOver = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
                 let alertGameOverAction = UIAlertAction(title: "Restart", style: .default) { (addAction) in self.reset()}
             }
@@ -91,6 +110,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         lives = 3
         createBricks(NumberOfRows: 3, NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
+        generateLifeOne()
+        generateLifeTwo()
+        generateLifeThree()
     }
     
     func createBackground()
@@ -113,6 +135,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             starsBackground.run(loop)
         }
+    }
+    
+    func generateLifeOne()
+    {
+        let lifeOneTexture = SKTexture(imageNamed: "donald trump")
+        let lifeOneSecondTexture = SKTexture(imageNamed: "t")
+        lifeOne = SKSpriteNode(texture: lifeOneTexture, color: UIColor.white, size: CGSize(width: frame.width/20, height: frame.width/20))
+        lifeOne.position = CGPoint(x: frame.maxX - 8, y: frame.maxY - 20)
+        lifeOne.name = "lifeOne"
+        lifeOne.physicsBody?.isDynamic = false
+        lifeOne.alpha = 1.0
+        lifeOne.zPosition = 10
+        addChild(lifeOne)
+        
+    }
+    
+    func generateLifeTwo()
+    {
+        let lifeTwoTexture = SKTexture(imageNamed: "donald trump")
+        let lifeTwoSecondTexture = SKTexture(imageNamed: "t")
+        lifeTwo = SKSpriteNode(texture: lifeTwoTexture, color: UIColor.white, size: CGSize(width: frame.width/20, height: frame.width/20))
+        lifeTwo.position = CGPoint(x: frame.maxX - 34.75, y: frame.maxY - 20)
+        lifeTwo.name = "lifeTwo"
+        lifeTwo.physicsBody?.isDynamic = false
+        addChild(lifeTwo)
+        lifeTwo.alpha = 1.0
+        lifeTwo.zPosition = 10
+    }
+    
+    func generateLifeThree()
+    {
+        let lifeThreeTexture = SKTexture(imageNamed: "donald trump")
+        let lifeThreeSecondTexture = SKTexture(imageNamed: "t")
+        lifeThree = SKSpriteNode(texture: lifeThreeTexture, color: UIColor.white, size: CGSize(width: frame.width/20, height: frame.width/20))
+        lifeThree.position = CGPoint(x: frame.maxX - 61.5, y: frame.maxY - 20)
+        lifeThree.name = "lifeThree"
+        lifeThree.physicsBody?.isDynamic = false
+        addChild(lifeThree)
+        lifeThree.alpha = 1.0
+        lifeThree.zPosition = 10
     }
     
     func createBall()
