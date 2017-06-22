@@ -12,8 +12,6 @@ import GameplayKit
 
 class GameViewController: UIViewController
 {
-
-    @IBOutlet weak var myLivesLabel: UILabel!
     
     override func viewDidLoad()
     {

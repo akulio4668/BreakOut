@@ -96,29 +96,14 @@
                                     <segue destination="QiQ-x0-EDD" kind="show" id="LII-38-Miy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lives Left: ........" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBH-t9-PIC">
-                                <rect key="frame" x="228" y="40" width="131" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="131" id="DrV-5N-vRd"/>
-                                    <constraint firstAttribute="height" constant="29" id="zeE-dB-CO3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.43761149048805237" green="0.91078406572341919" blue="0.81981033086776733" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="PBH-t9-PIC" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="20" id="GDO-oD-DCp"/>
                             <constraint firstItem="hZK-7i-INU" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="20" id="Lhp-C7-NuP"/>
-                            <constraint firstItem="PBH-t9-PIC" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="aH7-jG-hYL"/>
                             <constraint firstItem="hZK-7i-INU" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" id="bFt-wR-Pfo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d5v-Lo-vlq"/>
-                    <connections>
-                        <outlet property="myLivesLabel" destination="PBH-t9-PIC" id="pLZ-KP-YrC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
