@@ -149,6 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         addChild(paddle)
     }
+
     
     func makeBrick(xPosition : Double, yPosition : Double, width: Int, height: Int)
     {
