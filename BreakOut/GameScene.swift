@@ -147,6 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame) // makes edge of the view part of the physics
         ball.removeFromParent()
         paddle.removeFromParent()
+        scoreLabel.removeFromParent()
         createBackground()
         createBall()
         createPaddle()
@@ -157,6 +158,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         generateLifeThree()
         generateLifeTwo()
         generateLifeOne()
+        
     }
     func reset()
     {
