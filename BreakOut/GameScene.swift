@@ -21,6 +21,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var lifeOne: SKSpriteNode!
     var lifeTwo: SKSpriteNode!
     var lifeThree: SKSpriteNode!
+    var scoreLabel: SKLabelNode!
+    var score = 0
     
     override func didMove(to view: SKView)
     {
