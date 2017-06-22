@@ -25,6 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var score = 0
     var winLoseLabel: SKLabelNode!
     var sound: SKAction!
+    var bricksLeft = 30
     
     override func didMove(to view: SKView)
     {
@@ -84,6 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             contact.bodyA.node?.removeFromParent()
             score += 100
+            bricksLeft -= 1
             scoreLabel.removeFromParent()
             createScoreLabel()
         }
@@ -92,8 +94,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             contact.bodyB.node?.removeFromParent()
             score += 100
+            bricksLeft -= 1
             scoreLabel.removeFromParent()
             createScoreLabel()
+        }
+        
+        if bricksLeft == 0
+        {
+            nextLevel()
         }
         
         if contact.bodyA.node?.name == "lose zone" || contact.bodyB.node?.name == "lose zone"
@@ -115,7 +123,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 lifeTwo.removeFromParent()
                 lifeOne.removeFromParent()
                 lives = 0
-                reset()
+            }
+            else
+            {
+                let alertGameOver = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
+                let alertGameOverAction = UIAlertAction(title: "Restart", style: .default) { (addAction) in self.reset()}
             }
             ball.removeFromParent()
             paddle.removeFromParent()
@@ -124,7 +136,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
-    
+    func nextLevel()
+    {
+        var levelCount = 0
+        levelCount += 1
+        let bricksLeftCalclator = (3 + levelCount) * 10
+        sound = SKAction.playSoundFileNamed("Background.mp3", waitForCompletion: false)
+        run(sound)
+        physicsWorld.contactDelegate = self
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame) // makes edge of the view part of the physics
+        ball.removeFromParent()
+        paddle.removeFromParent()
+        createBackground()
+        createBall()
+        createPaddle()
+        createLoseZone()
+        createScoreLabel()
+        createWinLoseLabel()
+        createBricks(NumberOfRows: 3 + levelCount , NumberOfBricks: 10, XPosition: Double(frame.width / 25) - Double(frame.width / 2), YPosition: 25.0, Padding: Int(frame.width) / 20)
+        generateLifeThree()
+        generateLifeTwo()
+        generateLifeOne()
+    }
     func reset()
     {
         winLoseLabel.text = "YOU LOSE!"
@@ -246,6 +279,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var padding = Padding
         var brickHeight = 10
         var brickWidth = (Int(frame.width) - padding * 9) / 10
+        bricksLeft = 30
         
         for rows in 1...numberOfRows
         {
@@ -258,7 +292,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             yPosition += Double(brickHeight + padding)
         }
     }
-    
     
     func makeBrick(xPosition : Double, yPosition : Double, width: Int, height: Int)
     {
