@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 // SKPhysicsContactDelegate - Add to use contact physics
 class GameScene: SKScene, SKPhysicsContactDelegate
@@ -15,14 +16,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var ball: SKSpriteNode!
     var paddle: SKSpriteNode!
-    var bricks: [SKSpriteNode?] = []
     var loseZone: SKSpriteNode!
     var lives = 3
     var score = 0
     var scoreLabel: SKLabelNode!
+    var backgroundMusic: AVAudioPlayer!
     
     override func didMove(to view: SKView)
     {
+        var sound = SKAction.playSoundFileNamed("Background.mp3", waitForCompletion: false)
+        run(sound)
         physicsWorld.contactDelegate = self
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)   // makes edge of the view part of the physics
         createBackground()
@@ -40,7 +43,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if ball.physicsBody?.isDynamic == false
         {
             ball.physicsBody?.isDynamic = true
-            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: -5))
+            var yVectorDir = Int(arc4random() % 5 + 3)
+            var xVectorDir = Int(arc4random() % 5 + 1)
+            var signChoice = Int(arc4random() % 2)
+            if (signChoice == 0)
+            {
+                xVectorDir = -xVectorDir
+            }
+            ball.physicsBody?.applyImpulse(CGVector(dx: xVectorDir, dy: -yVectorDir))
         }
         
         for touch in touches
