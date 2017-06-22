@@ -35,7 +35,7 @@ class GameViewController: UIViewController
         }
     }
 
-    myLivesLabel.text = "Lives Left: \(self.lives)"
+    //myLivesLabel.text = "Lives Left: \(self.lives)"
     
     override var shouldAutorotate: Bool {
         return true
