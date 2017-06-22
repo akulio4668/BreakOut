@@ -26,7 +26,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createBackground()
         createBall()
         createPaddle()
-        createBricks()
+        generateBrick1()
+        generateBrick2()
+        generateBrick3()
+        generateBrick4()
+        generateBrick5()
         createLoseZone()
         
         // this will start the ball movement
@@ -76,6 +80,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             else
             {
                 lives -= 1
+                let alertGameOver = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
+                let alertGameOverAction = UIAlertAction(title: "Restart", style: .default) { (addAction) in self.reset()}
             }
             ball.removeFromParent()
             paddle.removeFromParent()
@@ -149,26 +155,64 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(paddle)
     }
     
-    func createBricks()
+    func generateBrick1()
     {
-        var numberOfRows = 3
-        var numberOfBricks = 5
-        var brickWidth = 70
-        var brickHeight = 10
-        var xPosition = -162.5
-        var yPosition = 100.0
-        var offset = 10
-        
-        for rows in 1...numberOfRows
-        {
-            for index in 1...numberOfBricks
-            {
-                makeBrick(xPosition: xPosition, yPosition: yPosition, width: brickWidth, height: brickHeight)
-                xPosition += Double(brickWidth + offset)
-            }
-            xPosition = -162.5
-            yPosition += Double(brickHeight + offset)
-        }
+        let brick1 = SKSpriteNode(color: UIColor.white, size: CGSize(width: 69, height: 30))
+        brick1.position = CGPoint(x: frame.minX + 5, y: frame.maxY - 30)
+        brick1.physicsBody = SKPhysicsBody(rectangleOf: brick1.frame.size)
+        brick1.physicsBody?.allowsRotation = false
+        brick1.physicsBody?.friction = 0
+        brick1.name = "brick1"
+        brick1.physicsBody?.isDynamic = false
+        addChild(brick1)
+    }
+    
+    func generateBrick2()
+    {
+        let brick2 = SKSpriteNode(color: UIColor.white, size: CGSize(width: 69, height: 30))
+        brick2.position = CGPoint(x: frame.minX + 79, y: frame.maxY - 30)
+        brick2.physicsBody = SKPhysicsBody(rectangleOf: brick2.frame.size)
+        brick2.physicsBody?.allowsRotation = false
+        brick2.physicsBody?.friction = 0
+        brick2.name = "brick2"
+        brick2.physicsBody?.isDynamic = false
+        addChild(brick2)
+    }
+    
+    func generateBrick3()
+    {
+        let brick3 = SKSpriteNode(color: UIColor.white, size: CGSize(width: 69, height: 30))
+        brick3.position = CGPoint(x: frame.minX + 153, y: frame.maxY - 30)
+        brick3.physicsBody = SKPhysicsBody(rectangleOf: brick3.frame.size)
+        brick3.physicsBody?.allowsRotation = false
+        brick3.physicsBody?.friction = 0
+        brick3.name = "brick3"
+        brick3.physicsBody?.isDynamic = false
+        addChild(brick3)
+    }
+    
+    func generateBrick4()
+    {
+        let brick4 = SKSpriteNode(color: UIColor.white, size: CGSize(width: 69, height: 30))
+        brick4.position = CGPoint(x: frame.minX + 227, y: frame.maxY - 30)
+        brick4.physicsBody = SKPhysicsBody(rectangleOf: brick4.frame.size)
+        brick4.physicsBody?.allowsRotation = false
+        brick4.physicsBody?.friction = 0
+        brick4.name = "brick4"
+        brick4.physicsBody?.isDynamic = false
+        addChild(brick4)
+    }
+    
+    func generateBrick5()
+    {
+        let brick5 = SKSpriteNode(color: UIColor.white, size: CGSize(width: 69, height: 30))
+        brick5.position = CGPoint(x: frame.minX + 301, y: frame.maxY - 30)
+        brick5.physicsBody = SKPhysicsBody(rectangleOf: brick5.frame.size)
+        brick5.physicsBody?.allowsRotation = false
+        brick5.physicsBody?.friction = 0
+        brick5.name = "brick5"
+        brick5.physicsBody?.isDynamic = false
+        addChild(brick5)
     }
     
     func makeBrick(xPosition : Double, yPosition : Double, width: Int, height: Int)
