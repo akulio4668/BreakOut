@@ -63,14 +63,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
 
     func didBegin(_ contact: SKPhysicsContact)
     {
-        if contact.bodyA.node?.name == "brick" || contact.bodyB.node?.name == "brick"
+        if contact.bodyA.node?.name == "brick"
         {
-            print("Brick Hit!")
-            //brick.removeFromParent()
+            contact.bodyA.node?.removeFromParent()
+        }
+        if contact.bodyB.node?.name == "brick"
+        {
+            contact.bodyB.node?.removeFromParent()
         }
         if contact.bodyA.node?.name == "lose zone" || contact.bodyB.node?.name == "lose zone"
         {
-            print("You Lose a Ball")
             if lives == 1
             {
                 reset()
@@ -81,15 +83,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 let alertGameOver = UIAlertController(title: "Game Over", message: nil, preferredStyle: .alert)
                 let alertGameOverAction = UIAlertAction(title: "Restart", style: .default) { (addAction) in self.reset()}
             }
+            ball.removeFromParent()
+            paddle.removeFromParent()
+            createBall()
+            createPaddle()
         }
-        
     }
     
     
     func reset()
     {
         lives = 3
+        createBricks()
     }
+    
     func createBackground()
     {
         let stars = SKTexture(imageNamed: "stars")
@@ -98,7 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             let starsBackground = SKSpriteNode(texture: stars)
             starsBackground.zPosition = -1  // sets stacking order (lowest numbers in the very back; below everything)
-            starsBackground.anchorPoint = CGPoint(x: 0.5, y: 0.5)   // anchors the image 
+            starsBackground.anchorPoint = CGPoint(x: 0.5, y: 0.5)   // anchors the image
             starsBackground.position = CGPoint(x: 0, y: (starsBackground.size.height * CGFloat(i) - CGFloat(1 * i)))
             
             addChild(starsBackground)
@@ -115,6 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func createBall()
     {
         let ballDiameter = frame.width / 20
+        var circle = SKShapeNode(circleOfRadius: ballDiameter / 2)
         ball = SKSpriteNode(color: UIColor.blue, size: CGSize(width: ballDiameter, height: ballDiameter))
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         ball.name = "ball"
@@ -132,12 +140,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         ball.physicsBody?.contactTestBitMask = (ball.physicsBody?.collisionBitMask)!
         
         addChild(ball)
-        
     }
     
     func createPaddle()
     {
-        paddle = SKSpriteNode(color: UIColor.white, size: CGSize(width: frame.width / 4, height: frame.height / 25))
+        paddle = SKSpriteNode(color: UIColor.white, size: CGSize(width: frame.width / 4, height: frame.height / 50))
         paddle.position = CGPoint(x: frame.midX, y: frame.minY + 125)
         paddle.name = "paddle"
         
@@ -208,9 +215,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(brick5)
     }
     
+    func makeBrick(xPosition : Double, yPosition : Double, width: Int, height: Int)
+    {
+        var brick = SKSpriteNode(color: UIColor.white, size: CGSize(width: width, height: height))
+        brick.position = CGPoint(x: xPosition, y: yPosition)
+        brick.name = "brick"
+        brick.physicsBody = SKPhysicsBody(rectangleOf: brick.size)
+        brick.physicsBody?.isDynamic = false
+        addChild(brick)
+    }
+    
     func createLoseZone()
     {
-        loseZone = SKSpriteNode(color: UIColor.clear, size: CGSize(width: frame.width, height: 50))
+        loseZone = SKSpriteNode(color: UIColor.clear, size: CGSize(width: frame.width, height: 1))
         loseZone.position = CGPoint(x: frame.midX, y: frame.minY + 25)
         loseZone.name = "lose zone"
         
