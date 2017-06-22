@@ -202,6 +202,7 @@
 				TargetAttributes = {
 					709A1DD61EFAABA700665419 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 5VKGNBRP89;
 						ProvisioningStyle = Automatic;
 					};
 					709A1DF01EFAABA800665419 = {
@@ -426,6 +427,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5VKGNBRP89;
 				INFOPLIST_FILE = BreakOut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Nebula.BreakOut;
@@ -438,6 +440,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5VKGNBRP89;
 				INFOPLIST_FILE = BreakOut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Nebula.BreakOut;
@@ -519,6 +522,7 @@
 				709A1E071EFAABA800665419 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		709A1E081EFAABA800665419 /* Build configuration list for PBXNativeTarget "BreakOutTests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +531,7 @@
 				709A1E0A1EFAABA800665419 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		709A1E0B1EFAABA800665419 /* Build configuration list for PBXNativeTarget "BreakOutUITests" */ = {
 			isa = XCConfigurationList;
@@ -535,6 +540,7 @@
 				709A1E0D1EFAABA800665419 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
